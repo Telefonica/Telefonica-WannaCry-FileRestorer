@@ -1,0 +1,2 @@
+# Telefonica-WannaCry-FileRestorer
+Tool to restore some WannaCry files which encryption weren't finish properly
