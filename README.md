@@ -1,10 +1,10 @@
 ## Telefonica-WannaCry-FileRestorer
-This tool try to restore posible files which were in encryption process by WannaCry but that encryption was not finished properly.
+This tool tries to restore possible files encrypted by WannaCry, in case that the encryption was not finished properly.
 
 * Version: Alpha-RC1
 
 ### How to use
-We provide this video with an step-by-step to run this script.
+We provide this video with an execution of the script step-by-step.
 
 https://www.youtube.com/watch?v=c6z85-5hy5c
 
