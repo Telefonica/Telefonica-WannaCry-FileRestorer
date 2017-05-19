@@ -6,7 +6,7 @@ function restore{
     
     
     echo $path
-    Get-Childitem $path -include *.WNCRYT -recurse | 
+    Get-Childitem $path -include *.WNCRYT -recurse -force | 
     Foreach-Object {
         $nombre = $_.FullName
         echo "$nombre"
