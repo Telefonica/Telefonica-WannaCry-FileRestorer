@@ -8,10 +8,10 @@ function restore{
     echo $path
     Get-Childitem $path -include *.WNCRYT -recurse -force | 
     Foreach-Object {
-        $nombre = $_.FullName
-        echo "$nombre"
+        $name = $_.FullName
+        echo "$name"
         
-        $bytes = gc -en byte -TotalCount 600 $nombre | % { '{0:X2}' -f $_ } 
+        $bytes = gc -en byte -TotalCount 600 $name | % { '{0:X2}' -f $_ } 
         $b = ""
 
         for($i=0; $i -le 100; $i++)
@@ -21,14 +21,14 @@ function restore{
         
         for($i=0; $i -lt $known.Length; $i++)
         {       
-            $fichero_docx=$false   
-            $fichero_xlsx=$false
-            $fichero_pptx=$false  
+            $file_docx=$false   
+            $file_xlsx=$false
+            $file_pptx=$false  
         
             if ($b.contains($known[$i].header)){
                 echo "Header Detection: "$known[$i].extension
-                $newFile = $nombre + "." + $known[$i].extension 
-                mv $nombre $newFile
+                $newFile = $name + "." + $known[$i].extension 
+                mv $name $newFile
                 
                  
                  if ($known[$i].extension -eq "doc"){ 
@@ -49,25 +49,25 @@ function restore{
                  if ($known[$i].extension -eq "Zip"){   
 
                         cat $newFile | findstr "word/_rels/document.xml.rels" | Out-Null
-                        if ($?) {$fichero_docx=$true}
+                        if ($?) {$file_docx=$true}
                         
                         cat $newFile | findstr "xl/worksheets" | Out-Null
-                        if ($?) {$fichero_xlsx=$true}
+                        if ($?) {$file_xlsx=$true}
                         
                         cat $newFile | findstr "ppt/_rels/presentation.xml.rels" | Out-Null
-                        if ($?) {$fichero_pptx=$true}
+                        if ($?) {$file_pptx=$true}
                                                     
-                        if ($fichero_docx){
+                        if ($file_docx){
                             $docx = $newFile + ".docx"
                             mv $newFile $docx
                         }
                         
-                        if ($fichero_xlsx){
+                        if ($file_xlsx){
                             $xlsx = $newFile + ".xlsx"
                             mv $newFile $xlsx
                         }
                         
-                        if ($fichero_pptx) {         
+                        if ($file_pptx) {         
                             $pptx = $newFile + ".pptx"
                             mv $newFile $pptx      
                         }  
@@ -123,15 +123,15 @@ foreach ($objDisk in $colDisks)
 {
     if ($objDisk.DriveType -eq 3) 
     {
-        $rutadefinitiva = $objDisk.deviceID 
+        $finalPath = $objDisk.deviceID 
         #
-        if ($rutadefinitiva -eq "C:")
+        if ($finalPath -eq "C:")
         {
             $path = $env:LOCALAPPDATA+"\temp"
         }
         else
         {
-             $path = "$rutadefinitiva\$RECYCLE"
+             $path = "$finalPath\$RECYCLE"
         }
         restore -path $path
 
