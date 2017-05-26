@@ -6,6 +6,7 @@ function restore{
     
     
     echo $path
+    $ErrorActionPreference = "SilentlyContinue"
     Get-Childitem $path -include *.WNCRYT -recurse -force | 
     Foreach-Object {
         $nombre = $_.FullName
@@ -127,7 +128,8 @@ foreach ($objDisk in $colDisks)
         #
         if ($rutadefinitiva -eq "C:")
         {
-            $path = $env:LOCALAPPDATA+"\temp"
+            #$path = $env:LOCALAPPDATA+"\temp"
+            $path = "C:\users\*\appdata\local\temp"
         }
         else
         {
